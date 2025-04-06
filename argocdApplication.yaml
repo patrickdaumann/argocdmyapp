@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp
+  namespace: argocd  # Falls du ArgoCD in einem eigenen Namespace installiert hast
+spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: git@github.com:patrickdaumann/argocdmyapp.git
+    targetRevision: main
+    path: dev  # Das Verzeichnis im Repository, in dem deine Manifeste liegen
+  project: default
+  syncPolicy:
+    automated:
+      prune: true  # Löscht Ressourcen, die nicht mehr im Repo existieren
+      selfHeal: true  # Erkennt Änderungen direkt im Cluster und behebt sie
