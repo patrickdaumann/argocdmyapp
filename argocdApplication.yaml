@@ -8,11 +8,14 @@ spec:
     namespace: argocd
     server: https://kubernetes.default.svc
   source:
-    repoURL: git@github.com:patrickdaumann/argocdmyapp.git
+    repoURL: https://github.com/patrickdaumann/argocdmyapp.git
     targetRevision: main
     path: dev  # Das Verzeichnis im Repository, in dem deine Manifeste liegen
   project: default
   syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
     automated:
-      prune: true  # Löscht Ressourcen, die nicht mehr im Repo existieren
-      selfHeal: true  # Erkennt Änderungen direkt im Cluster und behebt sie
+      selfHeal: true
+      prune: true
