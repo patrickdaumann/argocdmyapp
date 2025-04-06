@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+  namespace: myapp
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: local-ca-issuer  # Wichtig: Verknüpfung zum ClusterIssuer
+  labels:
+    app: nginx
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - nginx.pdn.lab
+      secretName: nginx-tls  # Cert-Manager wird dieses Secret automatisch erstellen
+  rules:
+    - host: nginx.pdn.lab
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx-service
+                port:
+                  number: 80
