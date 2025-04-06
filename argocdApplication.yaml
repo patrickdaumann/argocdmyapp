@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/patrickdaumann/argocdmyapp.git
     targetRevision: main
-    path: dev  # Das Verzeichnis im Repository, in dem deine Manifeste liegen
+    path: dev/myapp  # Das Verzeichnis im Repository, in dem deine Manifeste liegen
   project: default
   syncPolicy:
     syncOptions:
